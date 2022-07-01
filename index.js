@@ -55,6 +55,14 @@ async function run(){
            
             res.send(result );
           });
+        app.delete('/addtodo/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            
+            const result = await taskCollection.deleteOne( filter);
+           
+            res.send(result );
+          });
     }
     finally{
 
