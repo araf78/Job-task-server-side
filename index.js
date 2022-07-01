@@ -13,7 +13,6 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ix9li.mongodb.net/?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-console.log(uri);
 
 async function run(){
     try{
@@ -55,6 +54,18 @@ async function run(){
            
             res.send(result );
           });
+
+          app.put('/edit/:id', async(req, res)=>{
+            const id = req.params.id;
+            const editTask = req.body;
+            const filter = { _id : ObjectId(id)};
+            const options = {};
+            const updateDoc = {
+                $set : {text : editTask.text},
+            };
+            const result = await taskCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
+          })
         app.delete('/addtodo/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
