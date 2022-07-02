@@ -19,7 +19,7 @@ async function run(){
         await client.connect();
         console.log('db connected');
 
-        const taskCollection = client.db('StoreTekh').collection('tasks');
+        const taskCollection = client.db('StoreTekh').collection('tasks'); 
         // post task 
         app.post('/addtodo', async (req, res) =>{
             const tasks = req.body;
